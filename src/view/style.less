@@ -1,0 +1,97 @@
+.wrapper {
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column;
+  width: 600px;
+  margin: auto;
+  margin-top: 70px;
+  .icon-box {
+    position: relative;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    box-shadow: 0 -5px 5px 1px rgb(230, 230, 230);
+    width: 160px;
+    height: 160px;
+    img {
+      position: absolute;
+      left: 30px;
+      top: 30px;
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .desc {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .download {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .qrcode {
+      border: 1px solid #969b9d;
+      padding: 5px 5px 0px 5px;
+      border-radius: 2px;
+    }
+    .downlaod-btn {
+      color: #fff;
+      height: 46px;
+      line-height: 46px;
+      font-size: 18px;
+      margin-top: 20px;
+      background-color: #28caad;
+      border-color: #28caad;
+      width: 200px;
+      border-radius: 30px;
+    }
+  }
+  .app-name {
+    font-size: 25px;
+    margin-left: 15px;
+  }
+  .app-tag {
+    font-size: 12px;
+    background-color: #e84d67;
+    color: #fff;
+    padding: 3px 5px;
+    border-radius: 3px;
+    margin-left: 15px;
+  }
+  .sub-title {
+    color: #969b9d;
+    margin-left: 10px;
+  }
+  .title {
+    font-size: 16px;
+    color: #333;
+    font-weight: 400;
+  }
+  .content {
+    display: block;
+    background-color: #f2f6f8;
+    padding: 10px 10px;
+    width: 100%;
+    color: #969b9d;
+  }
+  .list {
+    div {
+      padding: 10px 10px;
+      width: 100%;
+      color: #969b9d;
+      span {
+        vertical-align: top;
+        overflow: auto;
+        width: 33%;
+        display: inline-block;
+      }
+    }
+    div:nth-child(odd) {
+      background-color: #f2f6f8;
+    }
+    div:nth-child(even) {
+      background-color: #fff;
+    }
+  }
+}
