@@ -18,8 +18,8 @@ module.exports = merge(common, {
     output: {
         filename: 'js/[name].[chunkhash].js',
         chunkFilename: 'js/[name].[chunkhash].js',
-        path: path.resolve(__dirname, '../dist/appdl'),
-        publicPath: '/appdl'
+        path: path.resolve(__dirname, '../dist/appdl/'),
+        publicPath: '/appdl/'
     },
     optimization: {
         // 模块之间通过路径引用，避免新加入的模块导致模块id发生变化
