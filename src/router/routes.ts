@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 const Home = lazy(() => import("../view/Home"));
 export default [
   {
-    path: "/download",
+    path: "/appdl",
     component: Home,
     exact: true
   }
