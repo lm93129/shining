@@ -18,7 +18,7 @@ module.exports = merge(common, {
     output: {
         filename: 'js/[name].[chunkhash].js',
         chunkFilename: 'js/[name].[chunkhash].js',
-        path: path.resolve(__dirname, '../dist'),
+        path: path.resolve(__dirname, '../dist/appdl'),
         publicPath: '/'
     },
     optimization: {
@@ -109,7 +109,7 @@ module.exports = merge(common, {
         new CopyWebpackPlugin([
             {
                 from: path.resolve(__dirname, '../public'),
-                to: path.resolve(__dirname, '../dist/public'),
+                to: path.resolve(__dirname, '../dist/appdl/public'),
                 ignore: ['index.html']
             }
         ]),
