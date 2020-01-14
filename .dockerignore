@@ -1,0 +1,5 @@
+# 排除代码目录，加快构建过程
+.git/
+src/
+node_modules/
+!dist/*
