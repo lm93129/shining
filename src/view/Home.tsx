@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <div className={style.wrapper}>
       <div className={style["icon-box"]}>
-        <img src={require("@/assets/img/asoco-logo-max.jpg")} alt="" />
+        <img src={require("../assets/img/asoco-logo-max.jpg")} alt="" />
       </div>
       <section className={style["desc"]}>
         <div
