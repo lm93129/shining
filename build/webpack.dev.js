@@ -64,12 +64,12 @@ module.exports = merge(common, {
     //   target: 'http://localhost:3000',
     // }]
     proxy: {
-      '/appfile': {
+      '/appFile': {
         target: 'http://qa.asoco.ac.cn',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^/appfile': '/appfile'
+          '^/appFile': '/appFile'
         }
       }
     }

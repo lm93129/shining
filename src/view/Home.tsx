@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Icon, Divider } from "antd";
-import style from "./style.less";
-import { getData } from "../api/api";
-import QRCode from "qrcode.react";
-import { parseQueryString } from "../libs/until";
+import React, { useEffect, useState } from "react"
+import { Icon, Divider } from "antd"
+import style from "./style.less"
+import { getData } from "../api/api"
+import QRCode from "qrcode.react"
+import { parseQueryString } from "../libs/until"
 const Home = () => {
-  const currUrl = location.href;
-  const query = parseQueryString(currUrl);
+  const currUrl = location.href
+  const query = parseQueryString(currUrl)
   const [latest, setLatest] = useState({
     app_name: "",
     app_version: "",
@@ -14,22 +14,28 @@ const Home = () => {
     app_size: "",
     oss_url: "",
     created_time: "",
-    version_type: ""
-  });
-
-  const [list, setList] = useState([]);
-  useEffect(() => {
+    version_type: "",
+    update_description: ''
+  })
+  const [list, setList] = useState([])
+  const getAppInfo = (model:any, id:any) => {
     getData({
       page: 1,
       page_size: 10,
-      version_type: query.model,
-      project_id: query.id
+      version_type: model,
+      project_id: id
     }).then(res => {
-      console.log(res.data);
-      setLatest(res.data.items[0]);
-      setList(res.data.items);
-    });
-  }, []);
+      console.log(res.data)
+      setLatest(res.data.items[0])
+      setList(res.data.items)
+    })
+  }
+  const handleSwitchVersion = (index:any) => {
+    setLatest(list[index])
+  }
+  useEffect(() => {
+    getAppInfo(query.model, query.id)
+  }, [])
   return (
     <div className={style.wrapper}>
       <div className={style["icon-box"]}>
@@ -72,9 +78,7 @@ const Home = () => {
       <Divider />
       <section>
         <p className={style["title"]}>更新说明</p>
-        <span className={style["content"]}>
-          更新说明更新说明更新说明更新说明 更新说明
-        </span>
+        <span className={style["content"]}>{latest.update_description || '暂无'}</span>
       </section>
       <Divider />
       <section>
@@ -83,18 +87,24 @@ const Home = () => {
           {list
             ? list.map((e, index) => {
                 return (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    onClick={() => {
+                      handleSwitchVersion(index)
+                    }}
+                  >
                     <span>
                       {e.app_version}（build {e.app_build}）
                     </span>
+                    <span>{e.update_description || '暂无'}</span>
                     <span>{e.created_time}</span>
                   </div>
-                );
+                )
               })
             : ""}
         </div>
       </section>
     </div>
-  );
-};
-export default Home;
+  )
+}
+export default Home
