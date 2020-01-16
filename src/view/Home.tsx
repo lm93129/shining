@@ -38,8 +38,9 @@ const Home = () => {
     console.log(ua)
     if (!!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
       getAppInfo("ios", query.id)
+    } else {
+      getAppInfo("android", query.id)
     }
-    getAppInfo("android", query.id)
   }, [])
   return (
     <div className={style.wrapper}>
