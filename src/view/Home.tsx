@@ -15,10 +15,10 @@ const Home = () => {
     oss_url: "",
     created_time: "",
     version_type: "",
-    update_description: ''
+    update_description: ""
   })
   const [list, setList] = useState([])
-  const getAppInfo = (model:any, id:any) => {
+  const getAppInfo = (model: any, id: any) => {
     getData({
       page: 1,
       page_size: 10,
@@ -30,11 +30,16 @@ const Home = () => {
       setList(res.data.items)
     })
   }
-  const handleSwitchVersion = (index:any) => {
+  const handleSwitchVersion = (index: any) => {
     setLatest(list[index])
   }
   useEffect(() => {
-    getAppInfo(query.model, query.id)
+    var ua = navigator.userAgent
+    console.log(ua)
+    if (!!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+      getAppInfo("ios", query.id)
+    }
+    getAppInfo("android", query.id)
   }, [])
   return (
     <div className={style.wrapper}>
@@ -78,7 +83,9 @@ const Home = () => {
       <Divider />
       <section>
         <p className={style["title"]}>更新说明</p>
-        <span className={style["content"]}>{latest.update_description || '暂无'}</span>
+        <span className={style["content"]}>
+          {latest.update_description || "暂无"}
+        </span>
       </section>
       <Divider />
       <section>
@@ -96,7 +103,7 @@ const Home = () => {
                     <span>
                       {e.app_version}（build {e.app_build}）
                     </span>
-                    <span>{e.update_description || '暂无'}</span>
+                    <span>{e.update_description || "暂无"}</span>
                     <span>{e.created_time}</span>
                   </div>
                 )
