@@ -34,7 +34,7 @@ const Home = () => {
     setLatest(list[index])
   }
   useEffect(() => {
-    var ua = navigator.userAgent
+    let ua = navigator.userAgent
     console.log(ua)
     if (!!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
       getAppInfo("ios", query.id)
