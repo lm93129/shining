@@ -1,16 +1,10 @@
-const merge = require("webpack-merge")
-const common = require("./webpack.common.js")
-const path = require("path")
+
+const merge = require('webpack-merge')
+const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
-  devtool: "inline-source-map",
-  mode: "development",
-  output: {
-    filename: "js/[name].[hash].js",
-    chunkFilename: "js/[name].[hash].js",
-    path: path.resolve(__dirname, "../dist"),
-    publicPath: "/"
-  },
+  devtool: 'inline-source-map',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -19,16 +13,16 @@ module.exports = merge(common, {
         use: [
           "style-loader",
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: {
-                mode: "local",
-                localIdentName: "[path][name]__[local]--[hash:base64:5]"
+                mode: 'local',
+                localIdentName: '[path][name]__[local]--[hash:base64:5]'
               }
             }
           },
           {
-            loader: "less-loader",
+            loader: 'less-loader',
             options: {
               javascriptEnabled: true
             }
@@ -39,10 +33,10 @@ module.exports = merge(common, {
         test: /\.(css|less)$/,
         include: /node_modules/,
         use: [
-          "style-loader",
-          "css-loader",
+          'style-loader',
+          'css-loader',
           {
-            loader: "less-loader",
+            loader: 'less-loader',
             options: {
               javascriptEnabled: true
             }
