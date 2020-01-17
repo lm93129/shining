@@ -1,3 +1,4 @@
+
 const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
 
@@ -10,7 +11,7 @@ module.exports = merge(common, {
         test: /\.(css|less)$/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          "style-loader",
           {
             loader: 'css-loader',
             options: {
@@ -46,8 +47,8 @@ module.exports = merge(common, {
   },
   devServer: {
     historyApiFallback: true,
-    clientLogLevel: 'warning',
-    stats: 'errors-only',
+    clientLogLevel: "warning",
+    stats: "errors-only",
     noInfo: true,
     open: true,
     // 如果你想要代理多个路径特定到同一个 target 下，你可以使用由一个或多个「具有 context 属性的对象」构成的数组
@@ -56,12 +57,12 @@ module.exports = merge(common, {
     //   target: 'http://localhost:3000',
     // }]
     proxy: {
-      '/appFile': {
-        target: 'http://qa.asoco.ac.cn',
+      "/appFile": {
+        target: "http://127.0.0.1:3000",
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^/appFile': '/appFile'
+          "^/appFile": "/appFile"
         }
       }
     }
