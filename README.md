@@ -14,8 +14,7 @@
 修改src/config/index.ts中的prod域名地址
 运行：
 ```bash
-yarn install && yarn run build:prod
-docker-compose -f docker-compose.debug.yml  up -d
+docker-compose -f docker-compose.debug.yml up -d
 ```
 
 ### 安装运行
