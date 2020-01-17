@@ -1,5 +1,16 @@
 # shining
-- 🌟「闪灵」🌟  
+- 🌟「闪灵」🌟
+- 一个 App 在 workflwo 的管理工具🚀
+
+### 如何使用 
+```bush
+前端
+docker build -t shining .
+docker run -d --name shining -p8099:80 shining
+后端
+docker build -t appdlserver -f appdlserver/Dockerfile ./appdlserver
+docker run -d --name shining -p3000:3000 appdlserver
+```  
 
 ### 运行环境
 * golang v1.13.5+
@@ -34,12 +45,3 @@ cd appdlserver && go run main.go
 npm run build:prod / yarn run prod:dev
 ```
 
-## 运行Docker版本
-```bush
-前端
-docker build -t shining .
-docker run -d --name shining -p8099:80 shining
-后端
-docker build -t appdlserver -f appdlserver/Dockerfile ./appdlserver
-docker run -d --name shining -p3000:3000 appdlserver
-```
