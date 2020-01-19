@@ -1,27 +1,26 @@
 # shining
 - 🌟「闪灵」🌟
-- 一个 App 在 workflwo 的管理工具🚀
-
-### 如何启动 
-```bush
-前端
-docker build -t shining .
-docker run -d --name shining -p8099:80 shining
-后端
-docker build -t appdlserver -f appdlserver/Dockerfile ./appdlserver
-docker run -d --name shining -p3000:3000 appdlserver
-```  
+- 一个 App 在 workflow 的管理工具🚀
 
 ### 运行环境
+* docker
 * golang v1.13.5+
 * npm v8.15+
-* nginx 1.17.0+
 * postgresql 12+
 * https证书（请自行申请免费的dv证书）
+> 如果缺少https证书，则无法安装iOS的安装包  
 
-如果没得https证书，则无法安装iOS的安装包
+### Docker 启动
+```bush
+docker build -t shining .
+docker run -d --name shining -p8099:80 shining
+```  
+```bush
+docker build -t appdlserver -f appdlserver/Dockerfile ./appdlserver
+docker run -d --name shining -p3000:3000 appdlserver
+```
 
-### 快速启动
+### Docker Compose 启动
 修改.env文件中的配置
 
 修改src/config/index.ts中的prod域名地址
@@ -51,7 +50,6 @@ npm run build:prod / yarn run prod:dev
 后端使用3000端口，需要修改可以更改main.go文件中的r.Run(":3000")
 * swagger路径/appFile/swagger/index.html
 ### 上传安装包
-
 crul例子：
 ```bash
 curl --request POST \
@@ -70,7 +68,7 @@ curl --request POST \
 - Params: 
 ```
 # 安装包所属项目
-ProjectId=asoco-app
+ProjectId=app
 # 更新说明
 UpdateDescription=更新说明
 # 安装包文件
