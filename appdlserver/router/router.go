@@ -1,7 +1,7 @@
 package router
 
 import (
-	_ "appdlserver/docs"
+	"appdlserver/docs"
 	"appdlserver/router/api"
 	"os"
 
