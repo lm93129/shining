@@ -17,7 +17,7 @@ docker run -d --name shining -p8099:80 shining
 ```  
 ```bush
 docker build -t appdlserver -f appdlserver/Dockerfile ./appdlserver
-docker run -d --name shining -p3000:3000 appdlserver
+docker run -d --name appdlserver -p3000:3000 appdlserver
 ```
 
 ### Docker Compose 启动
@@ -41,9 +41,12 @@ npm run dev / yarn run dev
 cd appdlserver && go run main.go
 ```
 
-### 生产环境打包
+### 手动打包
 ```bush
-npm run build:prod / yarn run prod:dev
+前端
+npm run build:prod / yarn run build:prod
+后端
+cd appdlserver && go build -tags=jsoniter -o appdlserver
 ```
 
 ## 接口说明文档
