@@ -8,7 +8,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags=jsoniter -o appdlserver
 # 运行镜像
 FROM dockerhub.azk8s.cn/library/alpine:3.11.2
 WORKDIR /app
-ENV PROT="3000"
+ENV PORT="3000"
 ENV GIN_MODE="debug"
 ENV LOG_LEVEL="debug"
 COPY --from=builder /app/build/appdlserver /app/appdlserver
