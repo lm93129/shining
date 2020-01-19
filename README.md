@@ -3,13 +3,12 @@
 - 一个 App 在 workflow 的管理工具🚀
 
 ### 运行环境
+* docker
 * golang v1.13.5+
 * npm v8.15+
-* nginx 1.17.0+
 * postgresql 12+
 * https证书（请自行申请免费的dv证书）
-
-如果没得https证书，则无法安装iOS的安装包  
+> 如果缺少https证书，则无法安装iOS的安装包  
 
 ### Docker 启动
 ```bush
