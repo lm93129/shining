@@ -52,7 +52,7 @@ curl --request POST \
 - Params: 
 ```
 # 安装包所属项目
-ProjectId=asoco-app
+ProjectId=app
 # 更新说明
 UpdateDescription=更新说明
 # 安装包文件
