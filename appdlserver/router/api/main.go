@@ -3,16 +3,20 @@ package api
 import (
 	"appdlserver/server/serializer"
 	"encoding/json"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-// Ping 状态检查页面
+// @Summary 健康检查
+// @tags 健康检查
+// @Description 健康检查接口，如果返回200则表示成功
+// @Accept json
+// @Produce json
+// @Success 200 {string} string "pong"
+// @Router /ping [get]
 func Ping(c *gin.Context) {
-	c.JSON(200, serializer.Response{
-		Code: 0,
-		Msg:  "Pong",
-	})
+	c.String(http.StatusOK, "pong")
 }
 
 // ErrorResponse 返回错误消息

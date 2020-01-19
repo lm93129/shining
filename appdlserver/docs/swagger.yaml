@@ -1,0 +1,227 @@
+definitions:
+  appfile.ListApp:
+    properties:
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      projectId:
+        type: string
+      versionType:
+        type: string
+    required:
+    - projectId
+    - versionType
+    type: object
+  appfileparser.Assets:
+    properties:
+      kind:
+        type: string
+      url:
+        type: string
+    type: object
+  appfileparser.Item:
+    properties:
+      assets:
+        items:
+          $ref: '#/definitions/appfileparser.Assets'
+        type: array
+      metadata:
+        $ref: '#/definitions/appfileparser.Metadata'
+        type: object
+    type: object
+  appfileparser.Metadata:
+    properties:
+      bundleIdentifier:
+        type: string
+      bundleVersion:
+        type: string
+      kind:
+        type: string
+      title:
+        type: string
+    type: object
+  appfileparser.sparseBundleHeader:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/appfileparser.Item'
+        type: array
+    type: object
+  serializer.Response:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      error:
+        type: string
+      msg:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: lm93129@qq.com
+    name: lm93129
+    url: https://fs.tn
+  description: shining一个APP安装包管理系统
+  license: {}
+  title: shining安装包管理系统
+  version: "1.0"
+paths:
+  /appFile/appInfo/{id}:
+    get:
+      description: 获取单个安装包详情
+      parameters:
+      - description: 安装包ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "500":
+          description: 'err_code：50001 数据库操作失败 err_code: 40001 参数错误'
+          schema:
+            type: string
+      summary: 获取单个安装包详情
+      tags:
+      - APP安装包相关
+  /appFile/appInfos:
+    get:
+      description: 获取安装包列表
+      parameters:
+      - description: 安装包列表
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/appfile.ListApp'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "500":
+          description: 'err_code：50001 数据库操作失败 err_code: 40001 参数错误'
+          schema:
+            type: string
+      summary: 获取安装包列表
+      tags:
+      - APP安装包相关
+  /appFile/deleteFile:
+    delete:
+      description: 删除安装包
+      parameters:
+      - description: 安装包id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "500":
+          description: 'err_code：50001 数据库操作失败 err_code: 40001 参数错误'
+          schema:
+            type: string
+      summary: 删除安装包
+      tags:
+      - APP安装包相关
+  /appFile/plist/{id}:
+    get:
+      description: IOS获取plist文件
+      parameters:
+      - description: 安装包ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - text/xml
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/appfileparser.sparseBundleHeader'
+        "500":
+          description: 'err_code：50001 数据库操作失败 err_code: 40001 参数错误'
+          schema:
+            type: string
+      summary: IOS获取plist文件
+      tags:
+      - APP安装包相关
+  /appFile/project:
+    get:
+      description: APP安装包统计
+      parameters:
+      - description: 起始时间
+        in: query
+        name: star_time
+        required: true
+        type: string
+      - description: 结束事件
+        in: query
+        name: end_time
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "500":
+          description: 'err_code：50001 数据库操作失败 err_code: 40001 参数错误'
+          schema:
+            type: string
+      summary: APP安装包统计
+      tags:
+      - APP安装包相关
+  /appFile/uploadFile:
+    post:
+      description: 上传安装包文件
+      parameters:
+      - description: 安装包所属项目ID
+        in: query
+        name: ProjectId
+        required: true
+        type: string
+      - description: 安装包更新说明
+        in: query
+        name: UpdateDescription
+        required: true
+        type: string
+      - description: 安装包文件
+        in: formData
+        name: upload
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "500":
+          description: 'err_code：50001 数据库操作失败 err_code: 40001 参数错误'
+          schema:
+            type: string
+      summary: 上传安装包文件
+      tags:
+      - APP安装包相关
+swagger: "2.0"

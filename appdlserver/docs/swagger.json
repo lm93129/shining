@@ -1,0 +1,344 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "shining一个APP安装包管理系统",
+        "title": "shining安装包管理系统",
+        "contact": {
+            "name": "lm93129",
+            "url": "https://fs.tn",
+            "email": "lm93129@qq.com"
+        },
+        "license": {},
+        "version": "1.0"
+    },
+    "host": "localhost:3000",
+    "paths": {
+        "/appFile/appInfo/{id}": {
+            "get": {
+                "description": "获取单个安装包详情",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "APP安装包相关"
+                ],
+                "summary": "获取单个安装包详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "安装包ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "err_code：50001 数据库操作失败 err_code: 40001 参数错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/appFile/appInfos": {
+            "get": {
+                "description": "获取安装包列表",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "APP安装包相关"
+                ],
+                "summary": "获取安装包列表",
+                "parameters": [
+                    {
+                        "description": "安装包列表",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appfile.ListApp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "err_code：50001 数据库操作失败 err_code: 40001 参数错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/appFile/deleteFile": {
+            "delete": {
+                "description": "删除安装包",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "APP安装包相关"
+                ],
+                "summary": "删除安装包",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "安装包id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "err_code：50001 数据库操作失败 err_code: 40001 参数错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/appFile/plist/{id}": {
+            "get": {
+                "description": "IOS获取plist文件",
+                "produces": [
+                    "text/xml"
+                ],
+                "tags": [
+                    "APP安装包相关"
+                ],
+                "summary": "IOS获取plist文件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "安装包ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/appfileparser.sparseBundleHeader"
+                        }
+                    },
+                    "500": {
+                        "description": "err_code：50001 数据库操作失败 err_code: 40001 参数错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/appFile/project": {
+            "get": {
+                "description": "APP安装包统计",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "APP安装包相关"
+                ],
+                "summary": "APP安装包统计",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "起始时间",
+                        "name": "star_time",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束事件",
+                        "name": "end_time",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "err_code：50001 数据库操作失败 err_code: 40001 参数错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/appFile/uploadFile": {
+            "post": {
+                "description": "上传安装包文件",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "APP安装包相关"
+                ],
+                "summary": "上传安装包文件",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "安装包所属项目ID",
+                        "name": "ProjectId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "安装包更新说明",
+                        "name": "UpdateDescription",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "安装包文件",
+                        "name": "upload",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "err_code：50001 数据库操作失败 err_code: 40001 参数错误",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "appfile.ListApp": {
+            "type": "object",
+            "required": [
+                "projectId",
+                "versionType"
+            ],
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "projectId": {
+                    "type": "string"
+                },
+                "versionType": {
+                    "type": "string"
+                }
+            }
+        },
+        "appfileparser.Assets": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "appfileparser.Item": {
+            "type": "object",
+            "properties": {
+                "assets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/appfileparser.Assets"
+                    }
+                },
+                "metadata": {
+                    "type": "object",
+                    "$ref": "#/definitions/appfileparser.Metadata"
+                }
+            }
+        },
+        "appfileparser.Metadata": {
+            "type": "object",
+            "properties": {
+                "bundleIdentifier": {
+                    "type": "string"
+                },
+                "bundleVersion": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "appfileparser.sparseBundleHeader": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/appfileparser.Item"
+                    }
+                }
+            }
+        },
+        "serializer.Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object"
+                },
+                "error": {
+                    "type": "string"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

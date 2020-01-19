@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  appdlserver:
+    container_name: appdlserver
+    image: appdlserver
+    restart: unless-stopped
+    build:
+      context: ./appdlserver
+      dockerfile: appdlserver/Dockerfile
+    env_file: .env.example
+    ports:
+      - 3000:3000
+
+  shining:
+    container_name: shining
+    image: shining
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - default.conf:/etc/nginx/conf.d/default.conf
+      # 配置ssl证书
+      # - xxx.crt:/etc/nginx/ssl/bundle.crt
+      # - bundle.key:/etc/nginx/ssl/bundle.key
+    ports:
+      - 80:80
+      - 443:443b
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - /home/pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: abc123654
+      POSTGRES_DB: appdlserver
+      POSTGRES_USER: appdlserver
+    networks:
+      - appdlserver

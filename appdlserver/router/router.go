@@ -1,13 +1,17 @@
 package router
 
 import (
+	_ "appdlserver/docs"
 	"appdlserver/router/api"
 	"os"
+
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter() *gin.Engine {
+func InitRouter() *gin.Engine {
 	gin.SetMode(os.Getenv("GIN_MODE"))
 	gin.DisableConsoleColor()
 	r := gin.New()
@@ -22,6 +26,10 @@ func NewRouter() *gin.Engine {
 	// app相关接口
 	AppFile := r.Group("/appFile")
 	{
+		AppFile.GET("/swagger/*any", func(context *gin.Context) {
+			docs.SwaggerInfo.Host = context.Request.Host
+			ginSwagger.WrapHandler(swaggerFiles.Handler)(context)
+		})
 		AppFile.GET("/token", api.UpLoadToOSS)       // 获取oss，token和下载地址
 		AppFile.POST("/uploadFile", api.UpLoadFile)  // ci程序上传安装包接口
 		AppFile.GET("/appInfo/:id", api.AppInfoShow) // 获取app安装包详情

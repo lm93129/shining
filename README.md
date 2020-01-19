@@ -28,7 +28,7 @@ docker run -d --name shining -p3000:3000 appdlserver
 
 运行：
 ```bash
-docker-compose -f docker-compose.debug.yml up -d
+docker-compose -f docker-compose.yml up -d
 ```
 
 ### 安装运行(需要有nodejs和golang的环境)
@@ -49,7 +49,7 @@ npm run build:prod / yarn run prod:dev
 
 ## 接口说明文档
 后端使用3000端口，需要修改可以更改main.go文件中的r.Run(":3000")
-
+* swagger路径/appFile/swagger/index.html
 ### 上传安装包
 
 crul例子：

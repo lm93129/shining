@@ -6,6 +6,8 @@ import (
 )
 
 type Statistic struct {
+	StarTime string `form:"star_time" json:"star_time" binding:"required"`
+	EndTime  string `form:"end_time" json:"end_time" binding:"required"`
 }
 
 type Results struct {
@@ -18,7 +20,7 @@ func (server *Statistic) Statistic() serializer.Response {
 	var results []Results
 	err := model.DB.Model(&statistic).
 		Select("project_id ,COUNT(*)").
-		Group("project_id").
+		Group("project_id").Where("created_at BETWEEN ? AND ?", server.StarTime, server.EndTime).
 		Scan(&results).Error
 
 	if err != nil {
