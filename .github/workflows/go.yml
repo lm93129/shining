@@ -17,6 +17,6 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Build
-      run: go build -tags=jsoniter -v .
+      run: cd appdlserver && go build -tags=jsoniter -v .
       env:
         GO111MODULE: on
