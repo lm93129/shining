@@ -11,7 +11,7 @@
 > 如果缺少https证书，则无法安装iOS的安装包  
 
 ## 运行方式
-1. Docker 运行
+1. Docker 运行  
 ```bush
 docker build -t shining .
 docker run -d --name shining -p8099:80 shining
@@ -21,12 +21,9 @@ docker build -t appdlserver -f appdlserver/Dockerfile ./appdlserver
 docker run -d --name appdlserver -p3000:3000 appdlserver
 ```
 
-2. Docker Compose 启动
+2. Docker Compose 启动  
 修改.env文件中的配置
-
 修改src/config/index.ts中的prod域名地址
-
-运行：
 ```bash
 docker-compose -f docker-compose.yml up -d
 ```
