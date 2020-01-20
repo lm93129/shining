@@ -28,13 +28,6 @@ func init() {
 func main() {
 	// 装载路由
 	r := router.InitRouter()
-	s := &http.Server{
-		Addr:           fmt.Sprintf(":%s", os.Getenv("PORT")),
-		Handler:        r,
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   15 * time.Second,
-		MaxHeaderBytes: 1 << 20,
-	}
 
 	fmt.Println("|-----------------------------------|")
 	fmt.Println("|              闪 灵                |")
@@ -44,23 +37,7 @@ func main() {
 	fmt.Println("|-----------------------------------|")
 	fmt.Println("")
 
-	go func() {
-		if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("HTTP server listen: %s\n", err)
-		}
-	}()
-
-	signalChan := make(chan os.Signal)
-	signal.Notify(signalChan, os.Interrupt)
-	sig := <-signalChan
-	log.Println("Get Signal:", sig)
-	log.Println("Shutdown Server ...")
-	// 接收到关闭信号后等待3秒退出
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer cancel()
-
-	if err := s.Shutdown(ctx); err != nil {
+	if err := r.Run(":3000"); err != nil {
 		log.Fatal("Server Shutdown:", err)
 	}
-	log.Println("Server exiting")
 }
