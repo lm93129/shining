@@ -3,13 +3,9 @@ package main
 import (
 	"appdlserver/config"
 	"appdlserver/router"
-	"context"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
-	"os/signal"
-	"time"
 )
 
 func init() {
@@ -19,12 +15,10 @@ func init() {
 // @title shining安装包管理系统
 // @version 1.0
 // @description shining一个APP安装包管理系统
-
 // @contact.name lm93129
 // @contact.url https://fs.tn
 // @contact.email lm93129@qq.com
-
-//@host localhost:3000
+// @host localhost:3000
 func main() {
 	// 装载路由
 	r := router.InitRouter()
