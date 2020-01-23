@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import routes from './routes'
 
 function RouteWithSubRoutes(route: any) {
@@ -15,11 +15,12 @@ function RouteWithSubRoutes(route: any) {
 function RouteConfig() {
   return (
     <Switch>
+      <Redirect from="/" to="/appdl" exact />
       {routes.map((route, i) => (
         <RouteWithSubRoutes key={i} {...route} />
       ))}
     </Switch>
-  );
+  )
 }
 
 export default RouteConfig;
