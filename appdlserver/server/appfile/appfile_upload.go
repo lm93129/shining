@@ -54,7 +54,7 @@ func (service *UploadFile) Upload(c *gin.Context) serializer.Response {
 	}
 
 	fileName := strconv.FormatInt(time.Now().Unix(), 10)
-	key := "upload/appfile/" + appExt + "/" + fileName
+	key := "upload/appfile/" + service.ProjectId + "/" + appExt + "/" + fileName
 
 	appdb := model.AppManage{
 		Name:              appFileInfo.Name,
