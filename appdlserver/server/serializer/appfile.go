@@ -2,7 +2,9 @@ package serializer
 
 import (
 	"appdlserver/model"
+	"appdlserver/util/aliyunoss"
 	"fmt"
+	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"os"
 )
 
@@ -21,18 +23,11 @@ type AppData struct {
 }
 
 // 序列化返回的json
-func BuildAppData(item model.AppManage) AppData {
-	var downUrl string
+func BuildAppData(item model.AppManage,downUrl string) AppData {
 	if item.AppType == "ios" {
 		downUrl = fmt.Sprintf("itms-services://?action=download-manifest&url=%s/appFile/plist/%d",
 			os.Getenv("BASE_URL"),
 			item.ID,
-		)
-	} else {
-		downUrl = fmt.Sprintf("https://%s.%s/%s",
-			os.Getenv("OSS_BUCKET"),
-			os.Getenv("OSS_END_POINT"),
-			item.OssUrl,
 		)
 	}
 	return AppData{
@@ -68,7 +63,9 @@ func BuildAppNoUrlData(item model.AppManage) AppData {
 // 序列化列表
 func BuildAppDatas(items []model.AppManage) (appdatas []AppData) {
 	for _, item := range items {
-		appdata := BuildAppData(item)
+		signedGetURL, _ := aliyunoss.Bucket.SignURL(item.OssUrl, oss.HTTPGet, 600)
+
+		appdata := BuildAppData(item,signedGetURL)
 		appdatas = append(appdatas, appdata)
 	}
 	return appdatas

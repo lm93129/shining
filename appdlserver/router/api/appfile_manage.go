@@ -107,7 +107,11 @@ func DeleteFile(c *gin.Context) {
 // @Router /appFile/plist/{id} [get]
 func Plist(c *gin.Context) {
 	service := appfile.Plist{}
-	res := service.Show(c.Param("id"))
+	// 获取plist
+	res,err := service.Show(c.Param("id"))
+	if err!=nil {
+		c.JSON(200, ErrorResponse(err))
+	}
 	contentLength := len(res)
 	extraHeaders := map[string]string{
 		"MIME Type": "text/xml",
