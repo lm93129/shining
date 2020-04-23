@@ -1,4 +1,14 @@
 definitions:
+  appfile.DeleteApp:
+    properties:
+      id:
+        description: 要删除的安装包ID
+        items:
+          type: integer
+        type: array
+    required:
+    - id
+    type: object
   appfile.ListApp:
     properties:
       page:
@@ -121,11 +131,12 @@ paths:
     delete:
       description: 删除安装包
       parameters:
-      - description: 安装包id
-        in: query
-        name: id
+      - description: 安装包id数组
+        in: body
+        name: query
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/appfile.DeleteApp'
       produces:
       - application/json
       responses:
@@ -224,4 +235,19 @@ paths:
       summary: 上传安装包文件
       tags:
       - APP安装包相关
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: 健康检查接口，如果返回200则表示成功
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: pong
+          schema:
+            type: string
+      summary: 健康检查
+      tags:
+      - 健康检查
 swagger: "2.0"

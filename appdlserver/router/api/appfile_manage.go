@@ -83,7 +83,7 @@ func AppInfoShow(c *gin.Context) {
 // @Description 删除安装包
 // @Produce json
 // @tags APP安装包相关
-// @Param id query string true "安装包id"
+// @Param id query body appfile.DeleteApp true "安装包id数组"
 // @Success 200 {object} serializer.Response
 // @Failure 500 {string} string "err_code：50001 数据库操作失败 err_code: 40001 参数错误"
 // @Router /appFile/deleteFile [delete]
@@ -108,8 +108,8 @@ func DeleteFile(c *gin.Context) {
 func Plist(c *gin.Context) {
 	service := appfile.Plist{}
 	// 获取plist
-	res,err := service.Show(c.Param("id"))
-	if err!=nil {
+	res, err := service.Show(c.Param("id"))
+	if err != nil {
 		c.JSON(200, ErrorResponse(err))
 	}
 	contentLength := len(res)

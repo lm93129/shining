@@ -7,21 +7,25 @@ import (
 )
 
 type DeleteApp struct {
-	Id int `form:"id" json:"id" binding:"required" `
+	// 要删除的安装包ID
+	Id []int `form:"id" json:"id" binding:"required" `
 }
 
 func (server *DeleteApp) Delete() serializer.Response {
-	var appInfo model.AppManage
-	err := model.DB.First(&appInfo, server.Id).Error
+	var appInfo []model.AppManage
+	model.DB.Where(server.Id).Find(&appInfo)
+	// 异步删除oss中的数据，暂不处理oss返回的错误
+	go func() {
+		for _, v := range appInfo {
+			_ = aliyunoss.Bucket.DeleteObject(v.OssUrl)
+		}
+	}()
+
+	err := model.DB.Where(server.Id).Delete(model.AppManage{}).Error
 	if err != nil {
-		return serializer.DBErr("不存在该数据", err)
+		return serializer.DBErr("数据删除失败", err)
 	}
 
-	model.DB.Where("id = ?", server.Id).Delete(&appInfo)
-	err = aliyunoss.Bucket.DeleteObject(appInfo.OssUrl)
-	if err != nil {
-		return serializer.Err(50003, "oss删除失败", err)
-	}
 	return serializer.Response{
 		Code: 200,
 		Data: nil,

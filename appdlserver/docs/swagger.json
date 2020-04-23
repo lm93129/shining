@@ -97,11 +97,13 @@
                 "summary": "删除安装包",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "安装包id",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
+                        "description": "安装包id数组",
+                        "name": "query",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/appfile.DeleteApp"
+                        }
                     }
                 ],
                 "responses": {
@@ -245,9 +247,47 @@
                     }
                 }
             }
+        },
+        "/ping": {
+            "get": {
+                "description": "健康检查接口，如果返回200则表示成功",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "健康检查"
+                ],
+                "summary": "健康检查",
+                "responses": {
+                    "200": {
+                        "description": "pong",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "appfile.DeleteApp": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "要删除的安装包ID",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
         "appfile.ListApp": {
             "type": "object",
             "required": [
