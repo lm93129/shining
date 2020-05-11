@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Icon, Divider } from 'antd'
+import { Divider } from 'antd'
 import style from './style.less'
-const Home = () => {
+const Manage = () => {
   
   useEffect(() => {
+    console.log(1);
+    
   }, [])
   return (
     <div>
-      1111
+      <span>1asdasda</span>
     </div>
   )
 }
-export default Home
+export default Manage

@@ -1,6 +1,6 @@
 const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
-
+const path = require('path')
 module.exports = merge(common, {
   devtool: 'inline-source-map',
   mode: 'development',
@@ -16,17 +16,17 @@ module.exports = merge(common, {
             options: {
               modules: {
                 mode: 'local',
-                localIdentName: '[path][name]__[local]--[hash:base64:5]'
-              }
-            }
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+            },
           },
           {
             loader: 'less-loader',
             options: {
-              javascriptEnabled: true
-            }
-          }
-        ]
+              javascriptEnabled: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(css|less)$/,
@@ -37,12 +37,12 @@ module.exports = merge(common, {
           {
             loader: 'less-loader',
             options: {
-              javascriptEnabled: true
-            }
-          }
-        ]
-      }
-    ]
+              javascriptEnabled: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   devServer: {
     historyApiFallback: true,
@@ -57,13 +57,13 @@ module.exports = merge(common, {
     // }]
     proxy: {
       '/appFile': {
-        target: 'http://qa.asoco.ac.cn',
+        target: 'http://172.81.208.25:3000',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^/appFile': '/appFile'
-        }
-      }
-    }
-  }
+          '^/appFile': '/appFile',
+        },
+      },
+    },
+  },
 })

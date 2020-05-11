@@ -45,7 +45,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "antd": "^3.26.6",
+    "antd": "^4.2.0",
     "axios": "^0.19.1",
     "qrcode.react": "^1.0.0",
     "react": "^16.12.0",

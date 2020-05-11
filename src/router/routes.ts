@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-const Home = lazy(() => import("../view/Home"));
+const Home = lazy(() => import("../view/home"));
 const Manage = lazy(() => import('../view/manage'))
 export default [
   {
