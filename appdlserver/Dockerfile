@@ -1,12 +1,12 @@
 # 构建镜像
-FROM dockerhub.azk8s.cn/library/golang:1.13.5 AS builder
+FROM golang:1.14.1 AS builder
 WORKDIR /app/build
 COPY . /app/build
 ENV GOPROXY=https://goproxy.cn,direct
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags=jsoniter -o appdlserver
 
 # 运行镜像
-FROM dockerhub.azk8s.cn/library/alpine:3.11.2
+FROM alpine:3.11.2
 WORKDIR /app
 ENV PORT="3000"
 ENV GIN_MODE="debug"

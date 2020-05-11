@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   appdlserver:
@@ -8,9 +8,24 @@ services:
     build:
       context: ./appdlserver
       dockerfile: appdlserver/Dockerfile
-    env_file: .env.example
+    environment:
+      PG_HOST: "postgres"
+      PG_PORT: "5432"
+      PG_USER: "appdlserver"
+      PG_PW: "abc123654"
+      PG_DBNAME: "appdlserver"
+      PORT: "3000"
+      BASE_URL: "https://xxx.com.cn"
+      OSS_END_POINT: "oss-cn-hangzhou.aliyuncs.com"
+      OSS_ACCESS_KEY_ID: "xxxxxxx"
+      OSS_ACCESS_KEY_SECRET: "xxxxxxxx"
+      OSS_BUCKET: "apksave"
     ports:
       - 3000:3000
+    networks:
+      - shining
+    depends_on:
+      - postgres
 
   shining:
     container_name: shining
@@ -21,12 +36,16 @@ services:
       dockerfile: Dockerfile
     volumes:
       - default.conf:/etc/nginx/conf.d/default.conf
-      # 配置ssl证书
+      # 配置ssl证书,请务必配置正确，否则IOS无法正常安装
       # - xxx.crt:/etc/nginx/ssl/bundle.crt
       # - bundle.key:/etc/nginx/ssl/bundle.key
     ports:
       - 80:80
-      - 443:443b
+      - 443:443
+    networks:
+      - shining
+    depends_on:
+      - appdlserver
 
   postgres:
     container_name: postgres
@@ -41,4 +60,7 @@ services:
       POSTGRES_DB: appdlserver
       POSTGRES_USER: appdlserver
     networks:
-      - appdlserver
+      - shining
+
+networks:
+  shining:
