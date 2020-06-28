@@ -41,15 +41,18 @@ func (server *ListApp) List() serializer.Response {
 		}
 	}
 
-	if err := model.DB.Where("project_id = ? AND app_type = ?", server.ProjectId, server.VersionType).Model(model.AppManage{}).Count(&total).Error; err != nil {
-		return serializer.DBErr("", err)
-	}
 	if server.VersionType == "" {
 		if err := model.DB.Order("id desc").Where("project_id = ?", server.ProjectId).Limit(server.PageSize).Offset(index).Find(&list).Error; err != nil {
 			return serializer.DBErr("", err)
 		}
+		if err := model.DB.Where("project_id = ?", server.ProjectId).Model(model.AppManage{}).Count(&total).Error; err != nil {
+			return serializer.DBErr("", err)
+		}
 	} else {
 		if err := model.DB.Order("id desc").Where("project_id = ? AND app_type = ?", server.ProjectId, server.VersionType).Limit(server.PageSize).Offset(index).Find(&list).Error; err != nil {
+			return serializer.DBErr("", err)
+		}
+		if err := model.DB.Where("project_id = ? AND app_type = ?", server.ProjectId, server.VersionType).Model(model.AppManage{}).Count(&total).Error; err != nil {
 			return serializer.DBErr("", err)
 		}
 	}
