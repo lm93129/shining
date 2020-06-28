@@ -1,9 +1,9 @@
 import axios from '../libs/api.request'
 
-export const getData = (params:any) => {
+export const getAppList = (params: any) => {
   return axios.request({
     url: `/appFile/appInfos`,
-    method: "get",
-    params
+    method: 'get',
+    params,
   })
 }

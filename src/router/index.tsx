@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import routes from './routes'
+import frontRoutes from './frontRoutes'
+import consoleRoutes from './consoleRoutes'
 
+const routes = [...frontRoutes, ...consoleRoutes]
 function RouteWithSubRoutes(route: any) {
   return (
     <Route
