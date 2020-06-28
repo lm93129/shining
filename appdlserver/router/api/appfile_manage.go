@@ -43,8 +43,8 @@ func UpLoadFile(c *gin.Context) {
 // @tags APP安装包相关
 // @Param page_size query int false "分页大小"
 // @Param page query int false "分页"
-// @Param project_id query string false "所属项目,不填则查询项目"
-// @Param version_type query string true "安装包类型"
+// @Param project_id query string false "所属项目,不填则查询所有项目"
+// @Param version_type query string false "安装包类型,不填则查询项目下所有安装包"
 // @Success 200 {object} serializer.Response
 // @Failure 500 {string} string "err_code：50001 数据库操作失败 err_code: 40001 参数错误"
 // @Router /appFile/appInfos [get]

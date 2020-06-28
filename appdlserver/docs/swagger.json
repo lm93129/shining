@@ -73,16 +73,15 @@
                     },
                     {
                         "type": "string",
-                        "description": "所属项目,不填则查询项目",
+                        "description": "所属项目,不填则查询所有项目",
                         "name": "project_id",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "安装包类型",
+                        "description": "安装包类型,不填则查询项目下所有安装包",
                         "name": "version_type",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ],
                 "responses": {

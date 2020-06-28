@@ -101,14 +101,13 @@ paths:
         in: query
         name: page
         type: integer
-      - description: 所属项目,不填则查询项目
+      - description: 所属项目,不填则查询所有项目
         in: query
         name: project_id
         type: string
-      - description: 安装包类型
+      - description: 安装包类型,不填则查询项目下所有安装包
         in: query
         name: version_type
-        required: true
         type: string
       produces:
       - application/json
