@@ -8,12 +8,16 @@ import (
 type ListApp struct {
 	PageSize    int    `form:"page_size"`
 	Page        int    `form:"page"`
-	ProjectId   string `form:"project_id" binding:"required"`
+	ProjectId   string `form:"project_id"`
 	VersionType string `form:"version_type" binding:"required"`
 }
 
 func (server *ListApp) List() serializer.Response {
 	var list []model.AppManage
+	type Result struct {
+		ProjectId string
+	}
+	var result []Result
 	var index = 0
 	total := 0
 	if server.PageSize == 0 {
@@ -23,8 +27,22 @@ func (server *ListApp) List() serializer.Response {
 		index = (server.Page - 1) * server.PageSize
 	}
 
+	if server.ProjectId == "" {
+		if err := model.DB.Table("app_manage").
+			Select("project_id").
+			Group("project_id").
+			Scan(&result).Error; err != nil {
+			return serializer.DBErr("", err)
+		}
+
+		return serializer.Response{
+			Code: 200,
+			Data: result,
+		}
+	}
+
 	if err := model.DB.Where("project_id = ? AND app_type = ?", server.ProjectId, server.VersionType).Model(model.AppManage{}).Count(&total).Error; err != nil {
-		serializer.DBErr("", err)
+		return serializer.DBErr("", err)
 	}
 	if err := model.DB.Order("id desc").Where("project_id = ? AND app_type = ?", server.ProjectId, server.VersionType).Limit(server.PageSize).Offset(index).Find(&list).Error; err != nil {
 		return serializer.DBErr("", err)

@@ -9,20 +9,6 @@ definitions:
     required:
     - id
     type: object
-  appfile.ListApp:
-    properties:
-      page:
-        type: integer
-      pageSize:
-        type: integer
-      projectId:
-        type: string
-      versionType:
-        type: string
-    required:
-    - projectId
-    - versionType
-    type: object
   appfileparser.Assets:
     properties:
       kind:
@@ -107,12 +93,23 @@ paths:
     get:
       description: 获取安装包列表
       parameters:
-      - description: 安装包列表
-        in: body
-        name: body
+      - description: 分页大小
+        in: query
+        name: page_size
+        type: integer
+      - description: 分页
+        in: query
+        name: page
+        type: integer
+      - description: 所属项目,不填则查询项目
+        in: query
+        name: project_id
+        type: string
+      - description: 安装包类型
+        in: query
+        name: version_type
         required: true
-        schema:
-          $ref: '#/definitions/appfile.ListApp'
+        type: string
       produces:
       - application/json
       responses:

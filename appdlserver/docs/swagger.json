@@ -60,13 +60,29 @@
                 "summary": "获取安装包列表",
                 "parameters": [
                     {
-                        "description": "安装包列表",
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/appfile.ListApp"
-                        }
+                        "type": "integer",
+                        "description": "分页大小",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "分页",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "所属项目,不填则查询项目",
+                        "name": "project_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "安装包类型",
+                        "name": "version_type",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -285,27 +301,6 @@
                     "items": {
                         "type": "integer"
                     }
-                }
-            }
-        },
-        "appfile.ListApp": {
-            "type": "object",
-            "required": [
-                "projectId",
-                "versionType"
-            ],
-            "properties": {
-                "page": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                },
-                "projectId": {
-                    "type": "string"
-                },
-                "versionType": {
-                    "type": "string"
                 }
             }
         },
