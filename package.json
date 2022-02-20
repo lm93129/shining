@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "antd": "^4.2.0",
-    "axios": "^0.19.1",
+    "axios": "^0.21.2",
     "qrcode.react": "^1.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
